@@ -44,13 +44,12 @@ class BaseController
     {
         header_remove('Set-Cookie');
         
- 
         if (is_array($httpHeaders) && count($httpHeaders)) {
             foreach ($httpHeaders as $httpHeader) {
                 header($httpHeader);
             }
         }
- 
+
         echo $data;
         exit;
     }

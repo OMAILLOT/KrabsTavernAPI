@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . "/inc/bootstrap.php";
+require __DIR__ . "/Inc/bootstrap.php";
  
 try {
     //Parse URL for to treat the link
@@ -11,28 +11,29 @@ try {
     $isOne = "";
     $paramMethod = "";
     //Detect if the user want to login register or have a new password
-    if (strtolower($uri[3]) == "register" || strtolower($uri[3]) == "login" || strtolower($uri[3]) == "forgot_password") {
+    if (strtolower($uri[2]) == "register" || strtolower($uri[2]) == "login" || strtolower($uri[2]) == "forgot_password") {
         $objFeedController = new Authentification();
-        $objFeedController->{strtolower($uri[3])}();
+        $objFeedController->{strtolower($uri[2])}();
     } elseif (count($uri)-1 == 4 && $uri[count($uri)-1] != null) {
         $isOne = "One";
-        $paramMethod =$uri[4];
+        $paramMethod =$uri[3];
     }
 
     //detect file and excecute the function
-    $fileDetector = $uri[3]."Controller";
+    $fileDetector = $uri[2]."Controller";
     $objFeedController = new $fileDetector();
-    if ($isOne == "One" && ($uri[4] == "win" ||$uri[4] == "loose" ||$uri[4] == "equality")) {
+    print_r($objFeedController);
+    if ($isOne == "One" && ($uri[3] == "win" ||$uri[3] == "loose" ||$uri[3] == "equality")) {
 
-        $objFeedController->{"updateScore"}($uri[4]);
+        $objFeedController->{"updateScore"}($uri[3]);
     } else {
-        $strMethodName = strtolower($methode).$isOne.ucfirst($uri[3]);
+        $strMethodName = strtolower($methode).$isOne.ucfirst($uri[2]);
         $objFeedController->{$strMethodName}($paramMethod);
     }
 } catch (Error $e) {
 
-    if($methode == 'DELETE' && ($uri[3] != 'product' || $uri[3] != 'rate')) {
-            echo "Sorry you can't delete a ".$uri[3]."\n\n\n $e";
+    if($methode == 'DELETE' && ($uri[2] != 'product' || $uri[2] != 'rate')) {
+            echo "Sorry you can't delete a ".$uri[2]."\n\n\n $e";
     } else {
         echo "You probably put a wrong method or your link is incorrect\n\n\n$e";
     }
