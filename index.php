@@ -22,7 +22,6 @@ try {
     //detect file and excecute the function
     $fileDetector = $uri[2]."Controller";
     $objFeedController = new $fileDetector();
-    print_r($objFeedController);
     if ($isOne == "One" && ($uri[3] == "win" ||$uri[3] == "loose" ||$uri[3] == "equality")) {
 
         $objFeedController->{"updateScore"}($uri[3]);
