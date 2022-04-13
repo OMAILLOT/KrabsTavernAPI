@@ -39,9 +39,22 @@
             // send output
             if (!$strErrorDesc) {
                 if($register == "your identifier already exist") {
-                    $successfulMessage = "your identifier already exist";
+                    $successfulMessage = array(
+                        emailValid => false
+                    );
+                    $successfulMessage = json_encode($successfulMessage,JSON_INVALID_UTF8_SUBSTITUTE);
                 } else {
-                    $successfulMessage = "You register successfuly : \nyour information :\nId : ".$authentificationModel->getMaxId()."\nPseudo : ".$eachKeyAndValue['Name']."\nMail : ".str_replace(['%40'],"@",$eachKeyAndValue['EmailAddress']);
+                    $array = [
+                        "foo" => "bar",
+                        "bar" => "foo",
+                    ];
+                    $successfulMessage = array(
+                        "Id" => $authentificationModel->getMaxId(),
+                        "Username" => $eachKeyAndValue['Name'],
+                        "Email" => str_replace(['%40'],"@",$eachKeyAndValue['EmailAddress']),
+                    );
+                    $successfulMessage = json_encode($successfulMessage,JSON_INVALID_UTF8_SUBSTITUTE);
+                    // "You register successfuly : \nyour information :\nId : ".$authentificationModel->getMaxId()."\nPseudo : ".$eachKeyAndValue['Name']."\nMail : ".str_replace(['%40'],"@",$eachKeyAndValue['EmailAddress'])
                 }
                 $this->sendOutput(
                     $successfulMessage,

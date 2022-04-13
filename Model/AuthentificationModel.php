@@ -1,6 +1,7 @@
 <?php
 
     class AuthentificationModel extends Database {
+        
         public function register ($name,$address,$password,$gamesNumber) {
             try {
                 $scoreId = $this->getLastScoreId();
