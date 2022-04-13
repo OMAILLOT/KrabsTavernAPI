@@ -64,7 +64,7 @@ class UserController extends BaseController
  
         // send output
         if (!$strErrorDesc) {
-            // echo $responseData;
+            // echo 'esponse data' . $responseData;
             $this->sendOutput(
                 $responseData,
                 array('Content-Type: application/json', 'HTTP/1.1 200 OK')
