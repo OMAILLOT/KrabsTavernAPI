@@ -11,13 +11,25 @@ class UserAchievementController extends BaseController
         if (strtoupper($requestMethod) == 'GET') {
             try {
                 $userAchievementModel = new UserAchievementModel();
+                $achievementModel = new AchievementModel();
                 $intLimit = 10;
                 if (isset($arrQueryStringParams['limit']) && $arrQueryStringParams['limit']) {
                     $intLimit = $arrQueryStringParams['limit'];
                 }
                 
                 $arrUserAchievement = $userAchievementModel->getUserAchievements($intLimit);
-                $responseData = json_encode($arrUserAchievement,JSON_INVALID_UTF8_SUBSTITUTE);
+                $arr = $arrUserAchievement;
+                $finalArr = [];
+                foreach ($arr[0] as $clé => $value){
+                    if ($clé == "AchievementId"){
+                        $query = $achievementModel->getOneAchievement($value); 
+                        $finalArr["Achievement"] = $query;
+                    }else{
+                        $finalArr[$clé] = $value;
+                    }
+                }
+                $responseData = json_encode($finalArr,JSON_INVALID_UTF8_SUBSTITUTE);
+                
             } catch (Error $e) {
                 $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';
                 $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
@@ -61,7 +73,6 @@ class UserAchievementController extends BaseController
  
         // send output
         if (!$strErrorDesc) {
-            // echo $responseData;
             $this->sendOutput(
                 $responseData,
                 array('Content-Type: application/json', 'HTTP/1.1 200 OK')
