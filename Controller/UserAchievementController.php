@@ -41,7 +41,39 @@ class UserAchievementController extends BaseController
         }
     }
 
-public function postUserAchievement() {
+    public function getOneUserAchievement($id) {
+        $strErrorDesc = '';
+        $requestMethod = $_SERVER["REQUEST_METHOD"];
+ 
+        if (strtoupper($requestMethod) == 'GET') {
+            try {
+                $userAchievementModel = new UserAchievementModel();
+                $arruserAchievement = $userAchievementModel->getOneUserAchievement($id);
+                $responseData = json_encode($arruserAchievement,JSON_INVALID_UTF8_SUBSTITUTE);
+            } catch (Error $e) {
+                $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';
+                $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
+            }
+        } else {
+            $strErrorDesc = 'Method not supported';
+            $strErrorHeader = 'HTTP/1.1 422 Unprocessable Entity';
+        }
+ 
+        // send output
+        if (!$strErrorDesc) {
+            // echo $responseData;
+            $this->sendOutput(
+                $responseData,
+                array('Content-Type: application/json', 'HTTP/1.1 200 OK')
+            );
+        } else {
+            $this->sendOutput(json_encode(array('error' => $strErrorDesc)), 
+                array('Content-Type: application/json', $strErrorHeader)
+            );
+        }
+    }
+
+    public function postUserAchievement() {
         $strErrorDesc = '';
         $requestMethod = $_SERVER["REQUEST_METHOD"];
         
@@ -80,6 +112,7 @@ public function postUserAchievement() {
             $this->sendOutput(json_encode(array('error' => $strErrorDesc)), 
                 array('Content-Type: application/json', $strErrorHeader)
         );
+        }
     }
-    }
+
 }

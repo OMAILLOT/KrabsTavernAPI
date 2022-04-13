@@ -10,6 +10,14 @@ class UserAchievementModel extends Database
         LIMIT ?;", ["i", $limit]);  
     }
 
+    public function getOneUserAchievement($id)
+    {
+        return $this->select("SELECT userachievement.UserID, achievements.Title, achievements.Overview, userachievement.AchievementId
+         FROM userachievement 
+         INNER JOIN achievements ON userachievement.AchievementId = achievements.AchievementId
+         WHERE userachievement.UserID = ?;", ["i", $id]);  
+    }
+
     public function postUserAchievement($userId, $AchievementId, $date) {
         return $this->insert("INSERT INTO userAchievement (UserId, AchievementId, Date) VALUES (?,?,?)",["iis",$userId, $AchievementId,$date]);
     }
