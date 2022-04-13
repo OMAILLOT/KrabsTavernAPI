@@ -7,6 +7,7 @@ class HelpModel extends Database
     {
         return "All Documentation for methode post and update :
 
+Method: POST
 /index.php/register
 register parameter : \n
     Name : String,
@@ -14,27 +15,35 @@ register parameter : \n
     Password : String
 
 
-
+Method: POST
 /index.php/login
 login parameter : \n
     Identifier : String (EmailAdress / Name),
     Password : String
 
 
-
 score : \n
+    Method: GET
+    get score:
+        /index.php/score
+    get One Score
+        /index.php/score/{ID}
+
+    Method: POST
     Add a Win :
         /index.php/score/win
      
         UserId : Int, 
         GameId : Int
 
+    Method: POST
     Add a loose : 
         /index.php/score/loose
 
         UserId : Int, 
         GameId : Int
-    
+
+    Method: POST
     Add an equality :
         /index.php/score/equality
 
@@ -42,14 +51,24 @@ score : \n
         GameId : Int
 
 
+Method: GET
+/index.php/game
+Method: GET
+/index.php/game/{ID}
 
+Method: POST
 /index.php/game
 game parameter : \n
     Title : String,
     Overview : String
 
 
+Method: GET
+/index.php/userAchievement
+Method: GET
+/index.php/userAchievement/{ID}
 
+Method: POST
 /index.php/userAchievement
 userAchievement parameter : \n
     UserId : Int,
@@ -57,7 +76,12 @@ userAchievement parameter : \n
 
 
 
+Method: GET
+/index.php/achievement
+Method: GET
+/index.php/achievement/{ID}
 
+Method: POST
 /index.php/achievement
 achievement parameter : \n
     GameId : Int,
@@ -69,7 +93,8 @@ achievement parameter : \n
     public function getOneGame($table) {
         switch($table) {
             case "register":
-                return "/index.php/register\n
+                return "Method: POST
+                /index.php/register\n
 register parameter : \n
     Name : String,
     EmailAddress : String (***@***.***),
@@ -78,7 +103,8 @@ register parameter : \n
                 break;
 
             case "login":
-                return "/index.php/login\n
+                return "Method: POST
+                /index.php/login\n
 login parameter : \n
     Identifier : String (EmailAdress / Name),
     Password : String
@@ -87,48 +113,74 @@ login parameter : \n
 
             case "score":
                 return "
-score : \n
-    Add a Win :
-        /index.php/score/win
-     
-        UserId : Int, 
-        GameId : Int
-
-    Add a loose : 
-        /index.php/score/loose
-
-        UserId : Int, 
-        GameId : Int
-    
-    Add an equality :
-        /index.php/score/equality
-
-        UserId : Int, 
-        GameId : Int
+                score : \n
+                Method: GET
+                get score:
+                    /index.php/score
+                get One Score
+                    /index.php/score/{ID}
+            
+                Method: POST
+                Add a Win :
+                    /index.php/score/win
+                 
+                    UserId : Int, 
+                    GameId : Int
+            
+                Method: POST
+                Add a loose : 
+                    /index.php/score/loose
+            
+                    UserId : Int, 
+                    GameId : Int
+            
+                Method: POST
+                Add an equality :
+                    /index.php/score/equality
+            
+                    UserId : Int, 
+                    GameId : Int
     ";
                 break;
 
             case "game" :
-                return"/index.php/game\n
-game parameter : \n
-    Title : String,
-    Overview : String
+                return"Method: GET
+                /index.php/game
+                Method: GET
+                /index.php/game/{ID}
+                
+                Method: POST
+                /index.php/game
+                game parameter : \n
+                    Title : String,
+                    Overview : String
                 ";
                 break;
             case "userAchievement" :
-                return"/index.php/userAchievement\n
-userAchievement parameter : \n
-    UserId : Int,
-    AchievementId : Int
+                return"Method: GET
+                /index.php/userAchievement
+                Method: GET
+                /index.php/userAchievement/{ID}
+                
+                Method: POST
+                /index.php/userAchievement
+                userAchievement parameter : \n
+                    UserId : Int,
+                    AchievementId : Int
                 ";
                 break;
             case "achievement" :
-                return"/index.php/achievement\n
-achievement parameter : \n
-    GameId : Int,
-    Title : String,
-    Overview : String
-                ";
+                return"Method: GET
+                /index.php/achievement
+                Method: GET
+                /index.php/achievement/{ID}
+                
+                Method: POST
+                /index.php/achievement
+                achievement parameter : \n
+                    GameId : Int,
+                    Title : String,
+                    Overview : String ";
                 break;
             
             
