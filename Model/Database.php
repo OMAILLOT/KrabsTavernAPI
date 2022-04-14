@@ -19,7 +19,7 @@ class Database
     public function select($query = "" , $params = [])
     {
         try {
-            $stmt = $this->executeStatement( $query , $params );            
+            $stmt = $this->executeStatement( $query , $params );         
             $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);   
             $stmt->close();
  

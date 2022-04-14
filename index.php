@@ -14,15 +14,14 @@ try {
     if (strtolower($uri[2]) == "register" || strtolower($uri[2]) == "login" || strtolower($uri[2]) == "forgot_password") {
         $objFeedController = new Authentification();
         $objFeedController->{strtolower($uri[2])}();
-    } elseif (count($uri)-1 == 4 && $uri[count($uri)-1] != null) {
+    } elseif (count($uri)-1 == 3 && $uri[count($uri)-1] != null) {
         $isOne = "One";
-        $paramMethod =$uri[3];
+        $paramMethod = $uri[3];
     }
 
     //detect file and excecute the function
     $fileDetector = $uri[2]."Controller";
     $objFeedController = new $fileDetector();
-    // print_r($objFeedController);
     if ($isOne == "One" && ($uri[3] == "win" ||$uri[3] == "loose" ||$uri[3] == "equality")) {
 
         $objFeedController->{"updateScore"}($uri[3]);

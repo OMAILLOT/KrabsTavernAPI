@@ -17,6 +17,11 @@ class AchievementModel extends Database
     public function postAchievement($GameId, $Title, $Overview) {
         return $this->insert("INSERT INTO achievements (GameId, Title, Overview) VALUES (?,?,?)",["iss",$GameId, $Title, $Overview]);
     }
+
+    public function getAGameTitle($id){
+        return $this->select("SELECT Title FROM games
+        WHERE GameId = ?;", ["i", $id]); 
+    }
 }
 
 ?>

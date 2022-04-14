@@ -20,7 +20,21 @@ class AchievementController extends BaseController
                 }
                 
                 $arrAchievement = $achievementModel->getAchievements($intLimit);
-                $responseData = json_encode($arrAchievement,JSON_INVALID_UTF8_SUBSTITUTE);
+                $arr = $arrAchievement;
+                $finalArr = [];
+                $arrAchievements = [];
+                foreach($arr as $achievement){
+                    foreach ($achievement as $clé => $value){
+                        if ($clé == "GameId"){
+                            $query = $achievementModel->getAGameTitle($value);
+                            $arrAchievements["Game"] = $query[0]['Title'];
+                        }else{
+                            $arrAchievements[$clé] = $value;
+                        }
+                    }
+                    array_push($finalArr, $arrAchievements);
+                }
+                $responseData = json_encode($finalArr,JSON_INVALID_UTF8_SUBSTITUTE);
             } catch (Error $e) {
                 $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';
                 $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
@@ -52,6 +66,17 @@ class AchievementController extends BaseController
             try {
                 $achievementModel = new AchievementModel();
                 $arrUsers = $achievementModel->getOneAchievement($id);
+                $arr = $arrAchievement;
+                $finalArr = [];
+                foreach ($arr[0] as $clé => $value){
+                    if ($clé == "GameId"){
+                        $query = $achievementModel->getAGameTitle($value);
+                        $finalArr["Game"] = $query[0]['Title'];
+                    }else{
+                        $finalArr[$clé] = $value;
+                    }
+                    
+                }
                 $responseData = json_encode($arrUsers,JSON_INVALID_UTF8_SUBSTITUTE);
             } catch (Error $e) {
                 $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';
