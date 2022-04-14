@@ -11,7 +11,7 @@ class UserAchievementController extends BaseController
         if (strtoupper($requestMethod) == 'GET') {
             try {
                 $userAchievementModel = new UserAchievementModel();
-                $achievementModel = new AchievementModel();
+                $achievementController = new AchievementController();
                 $intLimit = 10;
                 if (isset($arrQueryStringParams['limit']) && $arrQueryStringParams['limit']) {
                     $intLimit = $arrQueryStringParams['limit'];
@@ -20,12 +20,13 @@ class UserAchievementController extends BaseController
                 $arrUserAchievement = $userAchievementModel->getUserAchievements($intLimit);
                 $arr = $arrUserAchievement;
                 $finalArr = [];
-                foreach ($arr[0] as $clé => $value){
+                foreach ($arr[0] as $clé => $valeur){
                     if ($clé == "AchievementId"){
-                        $query = $achievementModel->getOneAchievement($value); 
+                        $query = $achievementController->getOneAchievement($valeur); 
+                        echo 'hello';
                         $finalArr["Achievement"] = $query;
                     }else{
-                        $finalArr[$clé] = $value;
+                        $finalArr[$clé] = $valeur;
                     }
                 }
                 $responseData = json_encode($finalArr,JSON_INVALID_UTF8_SUBSTITUTE);
