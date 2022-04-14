@@ -24,6 +24,7 @@
                         str_replace(['%40'],"@",$eachKeyAndValue['EmailAddress']),
                         password_hash($eachKeyAndValue['Password'], PASSWORD_DEFAULT),
                         $gameModel->GetMaxId(),
+                        $date = date('y-m-d')
                     );
 
 
@@ -52,6 +53,7 @@
                         "Id" => $authentificationModel->getMaxId(),
                         "Username" => $eachKeyAndValue['Name'],
                         "Email" => str_replace(['%40'],"@",$eachKeyAndValue['EmailAddress']),
+                        "Creation " => date('d-m-y'),
                     );
                     $successfulMessage = json_encode($successfulMessage,JSON_INVALID_UTF8_SUBSTITUTE);
                     // "You register successfuly : \nyour information :\nId : ".$authentificationModel->getMaxId()."\nPseudo : ".$eachKeyAndValue['Name']."\nMail : ".str_replace(['%40'],"@",$eachKeyAndValue['EmailAddress'])

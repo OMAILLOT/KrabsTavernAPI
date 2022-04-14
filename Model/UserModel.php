@@ -5,12 +5,12 @@ class UserModel extends Database
 {
     public function getUsers($limit)
     {
-        return $this->select("SELECT users.UserId, users.Name, users.EmailAddress FROM users 
+        return $this->select("SELECT users.UserId, users.Name, users.EmailAddress, users.CreationDate FROM users 
         LIMIT ?;", ["i", $limit]);
     }
 
     public function getOneUser($id) {
-        return $this->select("SELECT users.UserId, users.Name, users.EmailAddress FROM users 
+        return $this->select("SELECT users.UserId, users.Name, users.EmailAddress, users.CreationDate FROM users 
         WHERE UserId = ?;", ["i", $id]);
     }
 

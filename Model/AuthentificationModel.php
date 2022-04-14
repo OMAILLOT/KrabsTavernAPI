@@ -2,7 +2,7 @@
 
     class AuthentificationModel extends Database {
         
-        public function register ($name,$address,$password,$gamesNumber) {
+        public function register ($name,$address,$password,$gamesNumber, $date) {
             try {
                 $scoreId = $this->getLastScoreId();
                 if ($scoreId == 0) {
@@ -13,9 +13,9 @@
                     return "your identifier already exist";
                 }
                 
-                $this->insert("INSERT INTO users (Name,EmailAddress,Password)
-                                VALUES (?,?,?)"
-                ,["sss",$name,$address,$password]);
+                $this->insert("INSERT INTO users (Name,EmailAddress,Password,CreationDate)
+                                VALUES (?,?,?,?)"
+                ,["ssss",$name,$address,$password, $date]);
                 
                 
                 $maxId = $this->getMaxId();
