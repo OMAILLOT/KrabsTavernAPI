@@ -30,12 +30,7 @@ try {
         $objFeedController->{$strMethodName}($paramMethod);
     }
 } catch (Error $e) {
-
-    if($methode == 'DELETE' && ($uri[2] != 'product' || $uri[2] != 'rate')) {
-            echo "Sorry you can't delete a ".$uri[2]."\n\n\n $e";
-    } else {
-        echo "You probably put a wrong method or your link is incorrect\n\n\n$e";
-    }
+    echo "You probably put a wrong method or your link is incorrect\n\n\n$e";
 }
 
 

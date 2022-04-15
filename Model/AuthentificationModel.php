@@ -61,42 +61,42 @@
             }
         }
 
-        public function forgot_password($id, $email) {
-            try {
-                $newPassword = implode("",$this->generatePassword());
-                $notHashPassword = $newPassword;
-                $newPassword =  password_hash($newPassword, PASSWORD_DEFAULT);
-                if ($this->getUserWithEmail($email) == false) {
-                    return "your email is not found";
-                }
+        // public function forgot_password($email, $password) {
+        //     try {
+        //         $newPassword = implode("",$this->generatePassword());
+        //         $notHashPassword = $newPassword;
+        //         $newPassword =  password_hash($newPassword, PASSWORD_DEFAULT);
+        //         if ($this->getUserWithEmail($email) == false) {
+        //             return "your email is not found";
+        //         }
 
-                $userId = $this->getUserWithEmail($email);
-                $isFind = false;
-                foreach ($userId as $value) {
-                    if ($value == $id) {
-                        $isFind = true;
-                    }
-                }
-                if (!$isFind) {
-                    return "Your id is not correct";
-                }
+        //         $userId = $this->getUserWithEmail($email);
+        //         $isFind = false;
+        //         foreach ($userId as $value) {
+        //             if ($value == $id) {
+        //                 $isFind = true;
+        //             }
+        //         }
+        //         if (!$isFind) {
+        //             return "Your id is not correct";
+        //         }
 
-                $emailSubjet = "New password for e-commerce-SQL";
-                $emailMessage = "Hello,\n I just send you an email for to tell you that we reset your password,\nyour new password is : $notHashPassword";
+        //         $emailSubjet = "Nouveau mot de passe pour Krabs' Tavern";
+        //         $emailMessage = "Bonjour,\n on vous envoie un,\nyour new password is : $notHashPassword";
 
-                ini_set("SMTP", "gmail-smtp-in.l.google.com");
-                ini_set("smtp_port", 25);
-                ini_set("sendmail_from","monadresse@gmail.com");
+        //         ini_set("SMTP", "gmail-smtp-in.l.google.com");
+        //         ini_set("smtp_port", 25);
+        //         ini_set("sendmail_from","monadresse@gmail.com");
                 
-                mail($email,$emailSubjet,wordwrap($emailMessage, 70, "\r\n"),"From: username@gmail.com");
+        //         mail($email,$emailSubjet,wordwrap($emailMessage, 70, "\r\n"),"From: username@gmail.com");
 
-                $this->insert('UPDATE users SET Password ="'.$newPassword.'" WHERE UserId = "'.$id.'"');
-                return $this->select('SELECT UserId, Pseudo, EmailAddress, CONCAT(FirstName," ", LastName) AS FullName FROM users 
-                WHERE (EmailAddress = "'.$email.'") AND UserId = "'.$id.'"');
-            } catch (Exception $e) {
-                echo "Your email address are not correct.";
-            }
-        }
+        //         $this->insert('UPDATE users SET Password ="'.$newPassword.'" WHERE UserId = "'.$id.'"');
+        //         return $this->select('SELECT UserId, Pseudo, EmailAddress, CONCAT(FirstName," ", LastName) AS FullName FROM users 
+        //         WHERE (EmailAddress = "'.$email.'")');
+        //     } catch (Exception $e) {
+        //         echo "Your email address are not correct.";
+        //     }
+        // }
 
         public function getMaxId() {
             $selectUserId = "SELECT MAX(UserId) AS UserId FROM users";
@@ -136,16 +136,16 @@
             }
         }
 
-        private function generatePassword() {
-            $comb = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-            $pass = array(); 
-            $combLen = strlen($comb) - 1; 
-            for ($i = 0; $i < 8; $i++) {
-                $n = rand(0, $combLen);
-                $pass[] = $comb[$n];
-            }
-            return $pass;
-        }
+        // private function generatePassword() {
+        //     $comb = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        //     $pass = array(); 
+        //     $combLen = strlen($comb) - 1; 
+        //     for ($i = 0; $i < 8; $i++) {
+        //         $n = rand(0, $combLen);
+        //         $pass[] = $comb[$n];
+        //     }
+        //     return $pass;
+        // }
 
         private function isIdentifierExiste($name,$address) {
             $selectUser = 'SELECT Name, EmailAddress FROM users WHERE (EmailAddress = "'."$address" .'" OR Name = "'."$name".'")';
